@@ -52,7 +52,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     private static String Posturl ="https://reqres.in/api/users";
     OkHttpClient client;
-    private static String res;
     private MaterialButton cameraBtn;
     private MaterialButton galeryBtn;
     private ImageView imageIv;
@@ -133,6 +132,7 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+        // client that sends the post request
         client = new OkHttpClient();
 }
     private void post(String value){
@@ -190,19 +190,22 @@ public class MainActivity2 extends AppCompatActivity {
     private void exyractBarcodeInfo(List<Barcode> barcodes) {
         //get info from barcode
         for (Barcode barcode : barcodes){
+
             Rect bounds = barcode.getBoundingBox();
             Point[] corners = barcode.getCornerPoints();
+
             //raw info from the barcode
             String rawValues = barcode.getRawValue();
             Log.d(TAG, "exyractBarcodeInfo: rawValues :"+rawValues);
 
-                       int valueType = barcode.getValueType();
+            int valueType = barcode.getValueType();
+
             switch (valueType) {
                 default:{
-                    res = rawValues;
                     Log.d(TAG, "exyractBarcodeInfo: default : ");
                     resultTv.setText("raw values : "+rawValues);
                 }
+
                 post(rawValues);
             }
         }
@@ -250,7 +253,6 @@ public class MainActivity2 extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT , imageUri);
         CameraActivityResultLauncher.launch(intent);
     }
-
 
 
     private final ActivityResultLauncher<Intent> CameraActivityResultLauncher = registerForActivityResult(
