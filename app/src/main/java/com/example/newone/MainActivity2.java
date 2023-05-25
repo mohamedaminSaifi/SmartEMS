@@ -36,6 +36,8 @@ import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -50,8 +52,9 @@ import okhttp3.Response;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    private static String Posturl ="https://reqres.in/api/users";
+    private static String Posturl ="http://192.168.1.106:8080/recepter";
     OkHttpClient client;
+    private String res;
     private MaterialButton cameraBtn;
     private MaterialButton galeryBtn;
     private ImageView imageIv;
@@ -71,6 +74,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private BarcodeScannerOptions barcodeScannerOptions;
     private BarcodeScanner barcodeScanner;
+    private JSONObject jsonObject = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,14 +156,21 @@ public class MainActivity2 extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d(TAG, "run() returned: post the rawValues :  " + value);
+                        try {
+                            res =response.body().string();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //Log.d(TAG, "run() returned: post the rawValues :  " + value);
                         Toast.makeText(MainActivity2.this,"scanned and sent to the db",Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, res);
 
                     }
                 });
             }
         });
     }
+
     private void deleteResultFromImage() {
         try {
             // gets img from image uri
