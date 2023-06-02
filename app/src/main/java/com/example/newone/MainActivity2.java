@@ -30,12 +30,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -201,6 +204,13 @@ public class MainActivity2 extends AppCompatActivity {
     private void exyractBarcodeInfo(List<Barcode> barcodes) {
         //get info from barcode
         for (Barcode barcode : barcodes){
+            try {
+                JSONObject jsonObject = new JSONObject("null");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String json = "{ \"name\": \"Baeldung\", \"java\": true }";
+            JsonObject convertedObject = new Gson().fromJson(json, JsonObject.class);
 
             Rect bounds = barcode.getBoundingBox();
             Point[] corners = barcode.getCornerPoints();
