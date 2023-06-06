@@ -55,7 +55,8 @@ import okhttp3.Response;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    private static String Posturl ="http://192.168.1.106:8080/recepter";
+   // private static String Posturl ="http://192.168.23.137:8080/Mobile/checkCode";
+   private static String Posturl ="http://192.168.1.106:8080/recepter";
     OkHttpClient client;
     private String res;
     private MaterialButton cameraBtn;
@@ -63,6 +64,7 @@ public class MainActivity2 extends AppCompatActivity {
     private ImageView imageIv;
 
     private MaterialButton scanBtn;
+    private MaterialButton listBtn;
     private TextView resultTv;
 
     private static final int CAMERA_REQUEST_CODE =100;
@@ -90,6 +92,7 @@ public class MainActivity2 extends AppCompatActivity {
         imageIv = findViewById(R.id.imageIv);
         scanBtn = findViewById(R.id.scanBtn);
         resultTv = findViewById(R.id.resultTv);
+        listBtn = findViewById(R.id.listBtn);
 
         cameraPermissions = new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}; //img from cam
         storagePermissions = new String[]{ android.Manifest.permission.WRITE_EXTERNAL_STORAGE}; // img from storage
@@ -139,9 +142,25 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+        //switch to check the results
+        listBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            checkResults();
+            }
+        });
+
+
+
         // client that sends the post request
         client = new OkHttpClient();
 }
+
+    private void checkResults() {
+        Intent intent = new Intent(this , MainActivity3.class);
+        startActivity(intent);
+    }
+
     private void post(String value){
         //creating the request and its body and sends the data with the name id and its value
         RequestBody requestBody = new FormBody.Builder()
@@ -204,29 +223,15 @@ public class MainActivity2 extends AppCompatActivity {
     private void exyractBarcodeInfo(List<Barcode> barcodes) {
         //get info from barcode
         for (Barcode barcode : barcodes){
-            try {
-                JSONObject jsonObject = new JSONObject("null");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            String json = "{ \"name\": \"Baeldung\", \"java\": true }";
-            JsonObject convertedObject = new Gson().fromJson(json, JsonObject.class);
-
-            Rect bounds = barcode.getBoundingBox();
-            Point[] corners = barcode.getCornerPoints();
-
             //raw info from the barcode
             String rawValues = barcode.getRawValue();
             Log.d(TAG, "exyractBarcodeInfo: rawValues :"+rawValues);
-
             int valueType = barcode.getValueType();
-
             switch (valueType) {
                 default:{
                     Log.d(TAG, "exyractBarcodeInfo: default : ");
                     resultTv.setText("raw values : "+rawValues);
                 }
-
                 post(rawValues);
             }
         }

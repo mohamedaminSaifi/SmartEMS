@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:text="sCAN NOW" />
+            android:text="SCAN NOW" />
 
         <TextView
             android:layout_width="match_parent"
@@ -63,7 +63,13 @@
             android:id="@+id/resultTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bordered_box"
             />
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/listBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="CHECK LIST" />
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+<RelativeLayout
+    android:background="@color/box"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_marginTop="10dp">
+    <TextView
+        android:text="Number"
+        android:id="@+id/text_number"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:text="Status:"
+        android:layout_marginTop="4dp"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"/>
+    <TextView
+        android:id="@+id/text_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:text="Not ckecked"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="4dp"/>
+
+</RelativeLayout>
+</LinearLayout>
