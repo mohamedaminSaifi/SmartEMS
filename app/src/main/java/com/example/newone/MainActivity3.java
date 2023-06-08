@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,7 +27,7 @@ import okhttp3.Response;
 
 public class MainActivity3 extends AppCompatActivity {
     private static String Getturl ="http://192.168.1.63:8080/Mobile/checklist";
-  //  private static String Getturl ="http://192.168.1.48:8080/items";
+    //private static String Getturl ="http://192.168.1.106:8080/items";
     ListView listView;
     private static final String TAG = "LIST_TAG";
     OkHttpClient client;
@@ -55,6 +56,7 @@ public class MainActivity3 extends AppCompatActivity {
                 String jsonData = response.body().string();
                 Log.d(TAG, "json data: " + jsonData);
                 Gson gson = new Gson();
+               //filling an arrayList of items with the data retreived from the server
                 Type listType = new TypeToken<ArrayList<item>>(){}.getType();
                 ArrayList<item> items = gson.fromJson(jsonData, listType);
                 return items;
@@ -67,8 +69,14 @@ public class MainActivity3 extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<item> items) {
             if (items != null) {
+                //setting the view to the ListView with the list of items(adapter)
                 ItemAdapter adapter = new ItemAdapter(MainActivity3.this, items);
                 listView.setAdapter(adapter);
+            }
+            //here is thje showing no item message till we get it tested
+            else {
+                TextView emptyView = findViewById(R.id.empty_view);
+                listView.setEmptyView(emptyView);
             }
         }
     }

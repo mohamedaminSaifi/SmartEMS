@@ -17,6 +17,7 @@ public class ItemAdapter extends ArrayAdapter<item> {public ItemAdapter(Context 
     public View getView(int position, View convertView, ViewGroup parent) {
         item currentItem = getItem(position);
         if (convertView == null) {
+           //settong the layout to the proper items assosiated with the listView
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
         //here we set the info extracted from the item obj to be set as the view
@@ -24,7 +25,8 @@ public class ItemAdapter extends ArrayAdapter<item> {public ItemAdapter(Context 
         TextView textStatus = convertView.findViewById(R.id.text_status);
         TextView textName = convertView.findViewById(R.id.text_name);
         TextView textLastSeen = convertView.findViewById(R.id.text_lastSeen);
-       // textNumber.setText(currentItem.getNumber());
+       //here we set each TextView with the proper data extracted from the item
+        // textNumber.setText(currentItem.getNumber());
         textNumber.setText(String.valueOf(currentItem.getNumber()));
         textStatus.setText(currentItem.getStatus());
         textName.setText(currentItem.getName());

@@ -78,7 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        // when logged in show a welcom message
         Toast.makeText(MainActivity2.this,"Welcom", Toast.LENGTH_SHORT).show();
         cameraBtn = findViewById(R.id.cameraBtn);
         galeryBtn = findViewById(R.id.galeryBtn);

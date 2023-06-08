@@ -51,7 +51,7 @@ android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/baseline_person_24"
         android:drawablePadding="8dp"
         android:hint="ID"
-        android:inputType="number"
+        android:inputType="text"
         android:padding="8dp"
         tools:ignore="TextSizeCheck" />
 
