@@ -24,6 +24,7 @@
             android:layout_marginTop="10dp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cameraBtn"
+                app:cornerRadius="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -36,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:text="GALERY"
+                app:cornerRadius="10dp"
                 android:layout_weight="1"/>
         </LinearLayout>
         <ImageView
@@ -50,13 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            app:cornerRadius="10dp"
             android:text="SCAN NOW" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Result: "
-            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="Result : "
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
             />
 
         <TextView
@@ -64,12 +68,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bordered_box"
+            android:padding="5dp"
+            android:maxLength="94"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/listBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            android:layout_marginTop="15dp"
+            app:cornerRadius="10dp"
             android:text="CHECK LIST" />
     </LinearLayout>
 </ScrollView>

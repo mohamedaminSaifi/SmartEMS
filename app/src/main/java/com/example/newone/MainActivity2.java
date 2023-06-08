@@ -14,14 +14,13 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
-import android.graphics.Rect;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,20 +29,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -55,8 +48,8 @@ import okhttp3.Response;
 
 public class MainActivity2 extends AppCompatActivity {
 
-   // private static String Posturl ="http://192.168.23.137:8080/Mobile/checkCode";
-   private static String Posturl ="http://192.168.1.106:8080/recepter";
+    private static String Posturl ="http://192.168.1.63:8080/Mobile/checkCode";
+   //private static String Posturl ="http://192.168.1.106:8080/recepter";
     OkHttpClient client;
     private String res;
     private MaterialButton cameraBtn;
@@ -79,7 +72,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private BarcodeScannerOptions barcodeScannerOptions;
     private BarcodeScanner barcodeScanner;
-    private JSONObject jsonObject = new JSONObject();
+   // private JSONObject jsonObject = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,17 +86,14 @@ public class MainActivity2 extends AppCompatActivity {
         scanBtn = findViewById(R.id.scanBtn);
         resultTv = findViewById(R.id.resultTv);
         listBtn = findViewById(R.id.listBtn);
-
         cameraPermissions = new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}; //img from cam
         storagePermissions = new String[]{ android.Manifest.permission.WRITE_EXTERNAL_STORAGE}; // img from storage
-
-
         // setting the type of settings and types of codes to scan for me its all
         barcodeScannerOptions = new BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build();
-
         barcodeScanner = BarcodeScanning.getClient(barcodeScannerOptions);
-
+        // client that sends the post request
+        client = new OkHttpClient();
         // checks for cam permission and takes pic
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +119,6 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
-
         // scans the pic
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,21 +135,18 @@ public class MainActivity2 extends AppCompatActivity {
         listBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            checkResults();
+
+                checkResultsList();
             }
         });
 
-
-
-        // client that sends the post request
-        client = new OkHttpClient();
 }
-
-    private void checkResults() {
+        //changes the current activity to the next activity
+        private void checkResultsList() {
         Intent intent = new Intent(this , MainActivity3.class);
+        Toast.makeText(MainActivity2.this,"Checking list",Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
-
     private void post(String value){
         //creating the request and its body and sends the data with the name id and its value
         RequestBody requestBody = new FormBody.Builder()
@@ -172,7 +158,6 @@ public class MainActivity2 extends AppCompatActivity {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 runOnUiThread(new Runnable() {
@@ -186,13 +171,11 @@ public class MainActivity2 extends AppCompatActivity {
                         //Log.d(TAG, "run() returned: post the rawValues :  " + value);
                         Toast.makeText(MainActivity2.this,"scanned and sent to the db",Toast.LENGTH_SHORT).show();
                             Log.d(TAG, res);
-
                     }
                 });
             }
         });
     }
-
     private void deleteResultFromImage() {
         try {
             // gets img from image uri
@@ -204,7 +187,6 @@ public class MainActivity2 extends AppCompatActivity {
                         public void onSuccess(List<Barcode> barcodes) {
                             // success and we can get the data
                             exyractBarcodeInfo(barcodes);
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -219,7 +201,6 @@ public class MainActivity2 extends AppCompatActivity {
             Toast.makeText(MainActivity2.this,"failed due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
-
     private void exyractBarcodeInfo(List<Barcode> barcodes) {
         //get info from barcode
         for (Barcode barcode : barcodes){
@@ -236,8 +217,6 @@ public class MainActivity2 extends AppCompatActivity {
             }
         }
     }
-
-
     private void pickImageGallery(){
         //intent to pic an img from gallery will show where from
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -245,8 +224,6 @@ public class MainActivity2 extends AppCompatActivity {
         intent.setType("image/*");
         GalleryActivityResultLauncher.launch(intent);
     }
-
-
     private final ActivityResultLauncher<Intent> GalleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -267,7 +244,6 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
     );
-
     private void pickImageCmera() {
         ContentValues contentValues= new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE,"Sample Tite");
@@ -279,8 +255,6 @@ public class MainActivity2 extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT , imageUri);
         CameraActivityResultLauncher.launch(intent);
     }
-
-
     private final ActivityResultLauncher<Intent> CameraActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -310,12 +284,10 @@ public class MainActivity2 extends AppCompatActivity {
         //returns true if WRITE_EXTERNAL_STORAGE is granted else returns false
         return result;
     }
-
     private void requestStoragePermission(){
         //request storage permission (for gallery image pick)
         ActivityCompat.requestPermissions(this ,storagePermissions,STORAGE_REQUEST_CODE);
     }
-
     private boolean checkCameraPermission(){
 
         boolean resultCamer = ContextCompat.checkSelfPermission(this , android.Manifest.permission.CAMERA)
@@ -324,11 +296,9 @@ public class MainActivity2 extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED;
         return resultCamer && resultStorage;
     }
-
     private void requestCameraPermission(){
         ActivityCompat.requestPermissions(this , cameraPermissions ,CAMERA_REQUEST_CODE);
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -368,5 +338,4 @@ public class MainActivity2 extends AppCompatActivity {
             break;
         }
     }
-
 }

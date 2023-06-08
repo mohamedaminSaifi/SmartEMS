@@ -25,8 +25,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    //private static String Posturl ="http://192.168.23.137:8080/Mobile/Login";
-    private static String Posturl ="http://192.168.1.106:8080/login";
+    private static String Posturl ="http://192.168.1.63:8080/Mobile/Login";
+    //private static String Posturl ="http://192.168.1.106:8080/login";
     private static final String TAG = "MAIN2_TAG";
     private User user = new User();
     private String res;
@@ -39,9 +39,8 @@ public class MainActivity extends AppCompatActivity {
         client = new OkHttpClient();
         TextView user_id =(TextView) findViewById(R.id.login_id);
         TextView user_password =(TextView) findViewById(R.id.login_password);
-        String text_pass;
+        //String text_pass;
         Button login_button =  findViewById(R.id.login_button);
-        //1234 admin
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    //changini the activity and layout to the next page
+    //changing the activity and layout to the next activity
     private void changeActivity(){
         Intent intent = new Intent(this , MainActivity2.class);
         startActivity(intent);

@@ -25,7 +25,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity3 extends AppCompatActivity {
-    private static String Getturl ="http://192.168.1.106:8080/items";
+    private static String Getturl ="http://192.168.1.63:8080/Mobile/checklist";
+  //  private static String Getturl ="http://192.168.1.48:8080/items";
     ListView listView;
     private static final String TAG = "LIST_TAG";
     OkHttpClient client;
@@ -34,19 +35,25 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         listView = findViewById(R.id.list_view);
+        //creating a new instance of the GetItemsTask class
         new GetItemsTask().execute();
     }
-
+    //GetItemsTask imbeded class to avoid crashing the main thread
     private class GetItemsTask extends AsyncTask<Void, Void, ArrayList<item>> {
+        //setting the function to work in the background
         @Override
         protected ArrayList<item> doInBackground(Void... params) {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(Getturl)
+                    .addHeader("Accept-Encoding", "br,deflate,gzip,x-gzip")
                     .build();
             try {
+                //putting the response of the website in a Response obj and setting to a be a jsong obj then forming it to a ArrayList of items
                 Response response = client.newCall(request).execute();
+                Log.d(TAG, "response q: "+response);
                 String jsonData = response.body().string();
+                Log.d(TAG, "json data: " + jsonData);
                 Gson gson = new Gson();
                 Type listType = new TypeToken<ArrayList<item>>(){}.getType();
                 ArrayList<item> items = gson.fromJson(jsonData, listType);
@@ -56,7 +63,7 @@ public class MainActivity3 extends AppCompatActivity {
                 return null;
             }
         }
-
+        //sets the view to the items using setAdapter function
         @Override
         protected void onPostExecute(ArrayList<item> items) {
             if (items != null) {
@@ -66,6 +73,11 @@ public class MainActivity3 extends AppCompatActivity {
         }
     }
 }
+
+
+
+
+
 
 
 /*

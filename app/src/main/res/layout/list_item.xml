@@ -3,35 +3,81 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="5dp"
+    >
 <RelativeLayout
-    android:background="@color/box"
+    android:background="@drawable/item_border_box"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:layout_marginTop="10dp">
+    android:layout_height="80dp"
+    android:layout_marginTop="5dp"
+
+    >
     <TextView
+        android:paddingHorizontal="5dp"
+        android:textColor="@color/white"
+        android:text="Name"
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:maxLength="17"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        />
+    <TextView
+        android:paddingHorizontal="5dp"
         android:text="Number"
+        android:textColor="@color/white"
         android:id="@+id/text_number"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="7dp"
+        android:maxLength="17"
         android:layout_height="wrap_content"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         />
 
     <TextView
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
+        android:layout_marginVertical="31dp"
+        android:paddingHorizontal="5dp"
         android:text="Status:"
-        android:layout_marginTop="4dp"
-        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"/>
+        android:textColor="@color/white"/>
     <TextView
         android:id="@+id/text_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="4dp"
+        android:paddingHorizontal="5dp"
+        android:layout_marginVertical="31dp"
         android:text="Not ckecked"
+        android:textColor="@color/white"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:layout_marginTop="4dp"/>
-
+        />
+    <TextView
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="53dp"
+        android:paddingHorizontal="5dp"
+        android:text="Last seen :"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/text_lastSeen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginVertical="53dp"
+        android:text="00/00/00"
+        android:textColor="@color/white"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        />
 </RelativeLayout>
 </LinearLayout>
