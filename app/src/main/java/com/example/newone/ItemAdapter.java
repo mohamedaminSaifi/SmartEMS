@@ -26,7 +26,6 @@ public class ItemAdapter extends ArrayAdapter<item> {public ItemAdapter(Context 
         TextView textName = convertView.findViewById(R.id.text_name);
         TextView textLastSeen = convertView.findViewById(R.id.text_lastSeen);
        //here we set each TextView with the proper data extracted from the item
-        // textNumber.setText(currentItem.getNumber());
         textNumber.setText(String.valueOf(currentItem.getNumber()));
         textStatus.setText(currentItem.getStatus());
         textName.setText(currentItem.getName());

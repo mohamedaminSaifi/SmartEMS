@@ -49,7 +49,6 @@ import okhttp3.Response;
 public class MainActivity2 extends AppCompatActivity {
 
     private static String Posturl ="http://192.168.1.63:8080/Mobile/checkCode";
-   //private static String Posturl ="http://192.168.1.106:8080/recepter";
     OkHttpClient client;
     private String res;
     private MaterialButton cameraBtn;
@@ -72,7 +71,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private BarcodeScannerOptions barcodeScannerOptions;
     private BarcodeScanner barcodeScanner;
-   // private JSONObject jsonObject = new JSONObject();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

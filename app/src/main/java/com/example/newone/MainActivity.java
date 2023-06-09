@@ -27,7 +27,6 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
    //the url of the server
     private static String Posturl ="http://192.168.1.63:8080/Mobile/Login";
-   // private static String Posturl ="http://192.168.1.106:8080/login";
     private static final String TAG = "MAIN2_TAG";
     private User user = new User();
     private String res;

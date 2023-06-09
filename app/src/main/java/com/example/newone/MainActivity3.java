@@ -27,7 +27,6 @@ import okhttp3.Response;
 
 public class MainActivity3 extends AppCompatActivity {
     private static String Getturl ="http://192.168.1.63:8080/Mobile/checklist";
-    //private static String Getturl ="http://192.168.1.106:8080/items";
     ListView listView;
     private static final String TAG = "LIST_TAG";
     OkHttpClient client;
@@ -73,83 +72,7 @@ public class MainActivity3 extends AppCompatActivity {
                 ItemAdapter adapter = new ItemAdapter(MainActivity3.this, items);
                 listView.setAdapter(adapter);
             }
-            //here is thje showing no item message till we get it tested
-            else {
-                TextView emptyView = findViewById(R.id.empty_view);
-                listView.setEmptyView(emptyView);
-            }
+
         }
     }
 }
-
-
-
-
-
-
-
-/*
-*   @Override
-        protected ArrayList<item> doInBackground(Void... params) {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(Getturl)
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
-                String jsonData = response.body().string();
-                Gson gson = new Gson();
-                Type listType = new TypeToken<ArrayList<item>>(){}.getType();
-                ArrayList<item> items = gson.fromJson(jsonData, listType);
-                return items;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<item> items) {
-            if (items != null) {
-                ItemAdapter adapter = new ItemAdapter(MainActivity3.this, items);
-                listView.setAdapter(adapter);
-            }
-        }
-    }*/
-
-
-
-/* private static String Getturl ="http://192.168.1.106:8080/items";
-    ListView listView;
-    private static final String TAG = "LIST_TAG";
-    OkHttpClient client;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
-        listView = findViewById(R.id.list_view);
-        client = new OkHttpClient();
-        ArrayList<item> items;
-        try {
-            items = getItems();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        ItemAdapter adapter = new ItemAdapter(this, items);
-        ListView listView = findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-    }
-    private ArrayList<item> getItems() throws IOException {
-         client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(Getturl)
-                .build();
-        Response response = client.newCall(request).execute();
-        String jsonData = response.body().string();
-        Gson gson = new Gson();
-        Type listType = new TypeToken<ArrayList<item>>(){}.getType();
-        ArrayList<item> items = gson.fromJson(jsonData, listType);
-        return items;
-    }*/
-
-
